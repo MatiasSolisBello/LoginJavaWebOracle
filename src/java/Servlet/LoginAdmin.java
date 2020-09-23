@@ -1,26 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Servlet;
 
 import Config.Encriptar;
-import DAO.ClienteDAO;
-import Model.Cliente;
+import DAO.AdminDAO;
+import Model.Admin;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
-public class LoginServlet extends HttpServlet {
+public class LoginAdmin extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -30,22 +23,20 @@ public class LoginServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoginServlet</title>");            
+            out.println("<title>Servlet LoginAdmin</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet LoginServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet LoginAdmin at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
     }
-
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -54,16 +45,16 @@ public class LoginServlet extends HttpServlet {
         String correo = request.getParameter("correo");
         String password = request.getParameter("password");
          
-        ClienteDAO c = new ClienteDAO();
+        AdminDAO c = new AdminDAO();
          
         try {
-            Cliente cli = c.checkLogin(correo, enc.getMD5(password));
-            String destPage = "index.jsp";
+            Admin admin = c.checkLogin(correo, enc.getMD5(password));
+            String destPage = "login2.jsp";
              
-            if (cli != null) {
+            if (admin != null) {
                 HttpSession session = request.getSession();
-                session.setAttribute("cli", cli);
-                destPage = "home.jsp";
+                session.setAttribute("admin", admin);
+                destPage = "admin/home.jsp";
             } else {
                 String message = "Credenciales Invalidas";
                 request.setAttribute("message", message);
@@ -75,9 +66,7 @@ public class LoginServlet extends HttpServlet {
         } catch (SQLException | ClassNotFoundException ex) {
             throw new ServletException(ex);
         }
-        
     }
-
 
     @Override
     public String getServletInfo() {

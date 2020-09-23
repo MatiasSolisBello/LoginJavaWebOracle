@@ -10,9 +10,9 @@
 <body>
     <div class="container">
         <div class="login-content">
-            <form action="LoginServlet" method="post">
+            <form action="LoginAdmin" method="post">
                 <img src="img/avatar.svg">
-                <h2 class="title">Bienvenido Cliente</h2>
+                <h2 class="title">Bienvenido Admin</h2>
                 <div class="input-div one">
                     <div class="i">
                         <i class="fas fa-user"></i>
@@ -32,9 +32,10 @@
                     </div>
                 </div>
                 <a href="#">¿Olvidaste tu contraseña?</a>
-                <a href="login2.jsp">Ingrese como Admin</a>
+                <a href="index.jsp">Ingrese como Cliente</a>
                 <input type="submit" class="btn" value="Iniciar sesión">
                 ${message}
+                
                 
             </form>
             

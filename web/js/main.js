@@ -18,3 +18,26 @@ inputs.forEach(input => {
 	input.addEventListener("focus", addcl);
 	input.addEventListener("blur", remcl);
 });
+
+$(document).ready(function() {
+        $("#loginForm").validate({
+            rules: {
+                correo: {
+                    required: true,
+                    correo: true
+                },
+         
+                password: "required",
+            },
+             
+            messages: {
+                correo: {
+                    required: "Please enter email",
+                    correo: "Please enter a valid email address"
+                },
+                 
+                password: "Please enter password"
+            }
+        });
+ 
+    });
